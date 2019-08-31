@@ -3,7 +3,7 @@
 https://medium.com/@ynnahmet/android-nfc-1-mifareclassic-3ee2b2bbb844
 
 
-#Setup
+# Setup
 
     allprojects {
 	  	repositories {
