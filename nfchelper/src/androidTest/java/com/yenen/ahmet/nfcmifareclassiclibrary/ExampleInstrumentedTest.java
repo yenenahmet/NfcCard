@@ -1,4 +1,4 @@
-package com.spexco.nfcmifareclassiclibrary;
+package com.yenen.ahmet.nfcmifareclassiclibrary;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

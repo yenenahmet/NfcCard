@@ -1,6 +1,6 @@
-package com.spexco.nfcmifareclassiclibrary.helper
+package com.yenen.ahmet.nfcmifareclassiclibrary.helper
 
-import com.spexco.nfcmifareclassiclibrary.model.SectorStatusModel
+import com.yenen.ahmet.nfcmifareclassiclibrary.model.SectorStatusModel
 
 
 interface NfcMifareListener {

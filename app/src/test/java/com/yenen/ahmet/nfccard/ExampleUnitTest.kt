@@ -1,4 +1,4 @@
-package com.spexco.nfccard
+package com.yenen.ahmet.nfccard
 
 import org.junit.Test
 

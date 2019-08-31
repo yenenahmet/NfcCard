@@ -1,11 +1,10 @@
-package com.spexco.nfcmifareclassiclibrary.helper
+package com.yenen.ahmet.nfcmifareclassiclibrary.helper
 
 import android.nfc.Tag
 import android.nfc.tech.MifareClassic
 import android.util.Log
-import com.spexco.nfcmifareclassiclibrary.model.SectorStatusModel
+import com.yenen.ahmet.nfcmifareclassiclibrary.model.SectorStatusModel
 import java.io.IOException
-import java.lang.IllegalArgumentException
 import java.nio.charset.Charset
 
 class NfcMifareClassicIO constructor(
@@ -22,8 +21,9 @@ class NfcMifareClassicIO constructor(
     val MIFARE_CONNECT_IO_EXCEPTION: Short = 2
     val MIFARE_AUTHENTICATE_SECTOR_WINTH_KEY_A_READ: Short = 3
     val MIFARE_AUTHENTICATE_SECTOR_WINTH_KEY_A_WRITE: Short = 4
-    val MIFARE_AUTHENTICATE_SECTOR_WINTH_KEY_A_WRITE_FALSE: Short = 5
-    val MIFARE_AUTHENTICATE_SECTOR_WINTH_KEY_A_WRITE_BYTE_SIZE_LARGE_FROM_16: Short = 6
+    val MIFARE_AUTHENTICATE_WRITE_FALSE: Short = 5
+    val MIFARE_WRITE_BYTE_SIZE_LARGE_FROM_16: Short = 6
+    val MIFARE_WRITE_SECTOR_NOT_FOUND: Short = 7
 
     private fun getControlMifare(): MifareClassic? {
         val mifareClassic = MifareClassic.get(tag)
@@ -57,13 +57,24 @@ class NfcMifareClassicIO constructor(
     }
 
     private fun writeMifare(mifareClassic: MifareClassic, sectorIndex: Int, text: String) {
+        if(sectorIndex > mifareClassic.sectorCount){
+            listener?.onNfcIOState(MIFARE_WRITE_SECTOR_NOT_FOUND, null)
+            return
+        }
         var isAuthenticated = false
 
         if (mifareClassic.authenticateSectorWithKeyA(sectorIndex, MifareClassic.KEY_DEFAULT)) {
             isAuthenticated = true
         } else if (mifareClassic.authenticateSectorWithKeyA(sectorIndex, MifareClassic.KEY_NFC_FORUM)) {
             isAuthenticated = true
+        } else if (mifareClassic.authenticateSectorWithKeyA(
+                sectorIndex,
+                MifareClassic.KEY_MIFARE_APPLICATION_DIRECTORY
+            )
+        ) {
+            isAuthenticated = true
         }
+
         if (isAuthenticated) {
             charset.also { charset ->
                 val data = text.toByteArray(charset)
@@ -71,11 +82,11 @@ class NfcMifareClassicIO constructor(
                 try {
                     mifareClassic.writeBlock(block, data)
                 } catch (ex: IllegalArgumentException) {
-                    listener?.onNfcIOState(MIFARE_AUTHENTICATE_SECTOR_WINTH_KEY_A_WRITE_BYTE_SIZE_LARGE_FROM_16, ex)
+                    listener?.onNfcIOState(MIFARE_WRITE_BYTE_SIZE_LARGE_FROM_16, ex)
                 }
             }
         } else {
-            listener?.onNfcIOState(MIFARE_AUTHENTICATE_SECTOR_WINTH_KEY_A_WRITE_FALSE, null)
+            listener?.onNfcIOState(MIFARE_AUTHENTICATE_WRITE_FALSE, null)
         }
     }
 
@@ -111,6 +122,8 @@ class NfcMifareClassicIO constructor(
                 isAuthenticated = true
             } else if (mifare.authenticateSectorWithKeyA(i, MifareClassic.KEY_NFC_FORUM)) {
                 isAuthenticated = true
+            } else if (mifare.authenticateSectorWithKeyA(i, MifareClassic.KEY_MIFARE_APPLICATION_DIRECTORY)) {
+                isAuthenticated = true
             } else {
                 Log.e("NfcMifareClassicIO", "autkey not found ")
             }
@@ -119,7 +132,7 @@ class NfcMifareClassicIO constructor(
                 val index = mifare.sectorToBlock(i)
                 val readBlock = mifare.readBlock(index)
                 val text = String(readBlock, charset)
-                val sectorStatusModel = SectorStatusModel(index,text)
+                val sectorStatusModel = SectorStatusModel(index, text)
                 statusOfSectors.add(sectorStatusModel)
             }
         }

@@ -1,12 +1,12 @@
-package com.spexco.nfccard
+package com.yenen.ahmet.nfccard
 
 import android.nfc.Tag
 import android.os.Bundle
 import android.util.Log
-import com.spexco.nfcmifareclassiclibrary.base.BaseNfcMifareClassicActivity
-import com.spexco.nfcmifareclassiclibrary.helper.NfcMifareClassicIO
-import com.spexco.nfcmifareclassiclibrary.helper.NfcMifareListener
-import com.spexco.nfcmifareclassiclibrary.model.SectorStatusModel
+import com.yenen.ahmet.nfcmifareclassiclibrary.base.BaseNfcMifareClassicActivity
+import com.yenen.ahmet.nfcmifareclassiclibrary.helper.NfcMifareClassicIO
+import com.yenen.ahmet.nfcmifareclassiclibrary.helper.NfcMifareListener
+import com.yenen.ahmet.nfcmifareclassiclibrary.model.SectorStatusModel
 import kotlinx.android.synthetic.main.activity_main.*
 import java.nio.charset.Charset
 

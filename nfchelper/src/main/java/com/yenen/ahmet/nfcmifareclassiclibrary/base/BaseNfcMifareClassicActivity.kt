@@ -1,4 +1,4 @@
-package com.spexco.nfcmifareclassiclibrary.base
+package com.yenen.ahmet.nfcmifareclassiclibrary.base
 
 import android.app.PendingIntent
 import android.content.BroadcastReceiver

@@ -1,4 +1,4 @@
-package com.spexco.nfcmifareclassiclibrary;
+package com.yenen.ahmet.nfcmifareclassiclibrary;
 
 import org.junit.Test;
 
