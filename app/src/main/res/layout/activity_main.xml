@@ -6,19 +6,36 @@
                 android:layout_height="match_parent"
                >
 
-
     <EditText
+            android:maxLength="2"
+            android:inputType="number"
+            android:hint="block index"
+            android:id="@+id/blockIndex"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    <EditText
+            android:maxLength="2"
+            android:inputType="number"
+            android:layout_below="@+id/blockIndex"
+            android:hint="sector index"
+            android:id="@+id/sectorIndex"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    <EditText
+            android:hint="data"
+            android:layout_below="@+id/sectorIndex"
             android:maxLength="16"
             android:id="@+id/Edittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
     <Button
+            android:layout_below="@+id/Edittext"
             android:text="write"
             android:id="@+id/btnWrite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true" />
+            android:layout_centerHorizontal="true" />
 
     <Button
             android:layout_marginTop="15dp"
@@ -28,5 +45,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Read" />
+
+
+    <Button
+            android:layout_marginTop="15dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/readbutton"
+            android:id="@+id/reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="reset" />
+
+    <ScrollView
+            android:layout_below="@+id/reset"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/text"
+                android:layout_centerHorizontal="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+    </ScrollView>
+
 
 </RelativeLayout>
