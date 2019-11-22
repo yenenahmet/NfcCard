@@ -1,4 +1,4 @@
-package com.yenen.ahmet.nfcmifareclassiclibrary.helper
+package com.yenen.ahmet.nfcmifareclassiclibrary.helper.mifare
 
 import android.nfc.Tag
 import android.nfc.tech.MifareClassic
@@ -189,7 +189,8 @@ class NfcMifareClassicIO constructor(
 
 
     private fun isAuthenticated(mifareClassic: MifareClassic, sectorIndex: Int): Boolean {
-        val list = AuthenticatedByteArrayUtil.keyList
+        val list =
+            AuthenticatedByteArrayUtil.keyList
         list.forEach {
             try {
                 if (mifareClassic.authenticateSectorWithKeyA(sectorIndex, it)) {

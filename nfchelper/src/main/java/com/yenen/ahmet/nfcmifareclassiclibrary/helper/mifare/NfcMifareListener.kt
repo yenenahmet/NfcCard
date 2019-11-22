@@ -1,4 +1,4 @@
-package com.yenen.ahmet.nfcmifareclassiclibrary.helper
+package com.yenen.ahmet.nfcmifareclassiclibrary.helper.mifare
 
 import com.yenen.ahmet.nfcmifareclassiclibrary.model.SectorStatusModel
 

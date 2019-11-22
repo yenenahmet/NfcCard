@@ -12,7 +12,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import java.nio.charset.Charset
 
-abstract class BaseNfcMifareClassicActivity : AppCompatActivity() {
+abstract class BaseNfcActivity : AppCompatActivity() {
 
     private var nfcAdapter: NfcAdapter? = null
     private var nfcStateChangeBroadcastReceiver: BroadcastReceiver? = null
